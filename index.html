@@ -12,7 +12,7 @@
     --orange-light: #FF7A2E;
     --orange-dim:   rgba(255,91,0,0.09);
     --orange-border:rgba(255,91,0,0.25);
-    --bg:           #faf9f7;
+    --bg:           #ffffff;
     --card:         #ffffff;
     --text:         #111827;
     --text2:        #374151;
@@ -72,7 +72,7 @@
   /* ── BG oscuro para intro/results ── */
   .screen-bg {
     position: fixed; inset: 0; z-index: -1;
-    background: #0f1315;
+    background: #ffffff;
   }
   .screen-bg::after {
     content: '';
@@ -115,12 +115,12 @@
   .intro-image-hero {
     position: fixed; top: 0; left: 50%; transform: translateX(-50%);
     width: 100%; max-width: 520px;
-    height: 250px; overflow: hidden;
+    height: 450px; overflow: hidden;
     z-index: 0; pointer-events: none;
     border-radius: 0 0 28px 28px;
   }
   @media (min-width: 640px) {
-    .intro-image-hero { height: 210px; }
+    .intro-image-hero { height: 250px; }
     #screen-intro .inner { padding-top: 210px; }
   }
   .intro-image-hero img {
