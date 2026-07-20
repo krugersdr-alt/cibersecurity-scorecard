@@ -230,7 +230,7 @@
     color: #6b7280; margin-bottom: 0.35rem;
     text-transform: uppercase; letter-spacing: 0.8px;
   }
-  .field input, .field textarea {
+  .field input, .field textarea, .field select {
     width: 100%; background: var(--bg);
     border: 1.5px solid var(--border); border-radius: 12px;
     padding: 0.82rem 1rem;
@@ -238,7 +238,16 @@
     color: var(--text); outline: none; resize: none;
     transition: border-color 0.2s, box-shadow 0.2s;
   }
-  .field input:focus, .field textarea:focus {
+  .field select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'><path d='M4 6l4 4 4-4' stroke='%239ca3af' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+  }
+  .field select:invalid { color: #cbd5e1; }
+  .field input:focus, .field textarea:focus, .field select:focus {
     border-color: var(--orange);
     box-shadow: 0 0 0 3px rgba(255,91,0,0.1);
   }
@@ -478,13 +487,32 @@
       <div class="dim-tag">Tus datos</div>
       <div class="section-q">Antes de comenzar, cuéntanos quién eres</div>
     </div>
-    <div class="fields-grid">
-      <div class="field"><label>Nombre completo *</label><input type="text" id="f-nombre" placeholder="Juan Pérez"></div>
-      <div class="field"><label>Celular *</label><input type="tel" id="f-celular" placeholder="+593 99 000 0000"></div>
-      <div class="field"><label>Correo corporativo *</label><input type="email" id="f-correo" placeholder="juan@empresa.com"></div>
-      <div class="field"><label>Empresa *</label><input type="text" id="f-empresa" placeholder="Nombre de tu empresa"></div>
+    <div class="field"><label>Nombre completo *</label><input type="text" id="f-nombre" placeholder="Juan Pérez"></div>
+    <div class="field"><label>Correo corporativo *</label><input type="email" id="f-correo" placeholder="juan@empresa.com"></div>
+    <div class="field">
+      <label>Industria *</label>
+      <select id="f-industria" required>
+        <option value="" disabled selected hidden>Selecciona tu industria</option>
+        <option value="Servicios Financieros">Servicios Financieros</option>
+        <option value="Tecnología & Software">Tecnología & Software</option>
+        <option value="Consultoría & Servicios Profesionales">Consultoría & Servicios Profesionales</option>
+        <option value="Sector Público & ONG">Sector Público & ONG</option>
+        <option value="Retail & Consumo">Retail & Consumo</option>
+        <option value="Agro, Alimentos & Bebidas">Agro, Alimentos & Bebidas</option>
+        <option value="Construcción & Inmobiliaria">Construcción & Inmobiliaria</option>
+        <option value="Industria & Manufactura">Industria & Manufactura</option>
+        <option value="Energía & Medioambiente">Energía & Medioambiente</option>
+        <option value="Salud & Farmacéutica">Salud & Farmacéutica</option>
+        <option value="Logística & Transporte">Logística & Transporte</option>
+        <option value="Educación">Educación</option>
+        <option value="Tecnología SaaS/Similares">Tecnología SaaS/Similares</option>
+        <option value="Medios & Entretenimiento">Medios & Entretenimiento</option>
+        <option value="Marketing & Comunicaciones">Marketing & Comunicaciones</option>
+        <option value="Telecomunicaciones">Telecomunicaciones</option>
+        <option value="Comercio Internacional">Comercio Internacional</option>
+        <option value="Otros">Otros</option>
+      </select>
     </div>
-    <div class="field"><label>Cargo *</label><input type="text" id="f-cargo" placeholder="Gerente de TI"></div>
     <button class="btn-primary" onclick="nextStep(1)">Siguiente →</button>
   </div>
 </div>
@@ -647,7 +675,7 @@ function goTo(screenId) {
 
 function nextStep(step) {
   if (step === 1) {
-    const ids = ['f-nombre','f-celular','f-correo','f-empresa','f-cargo'];
+    const ids = ['f-nombre','f-correo','f-industria'];
     for (const id of ids) {
       const el = document.getElementById(id);
       if (!el.value.trim()) { showError(el, 'Este campo es obligatorio.'); return; }
@@ -684,10 +712,8 @@ async function submitForm() {
   goTo('screen-loading');
   const payload = {
     nombre:      document.getElementById('f-nombre').value.trim(),
-    celular:     document.getElementById('f-celular').value.trim(),
     correo:      document.getElementById('f-correo').value.trim(),
-    empresa:     document.getElementById('f-empresa').value.trim(),
-    cargo:       document.getElementById('f-cargo').value.trim(),
+    industria:   document.getElementById('f-industria').value.trim(),
     respuesta_1: document.getElementById('f-r1').value.trim(),
     respuesta_2: document.getElementById('f-r2').value.trim(),
     respuesta_3: document.getElementById('f-r3').value.trim(),
